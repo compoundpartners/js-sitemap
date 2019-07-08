@@ -1,0 +1,5 @@
+JS Sitemap
+====
+Addon description
+
+

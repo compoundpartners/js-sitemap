@@ -1,0 +1,6 @@
+{
+    "package-name": "js-sitemap",
+    "installed-apps": [
+        "js_sitemap"
+    ]
+}

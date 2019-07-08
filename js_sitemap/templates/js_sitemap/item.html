@@ -1,0 +1,10 @@
+  <ul>
+    {% for item in items|dictsort:'title' %}
+        <li>{{ item.sitemapextension }}
+            <a href="{{ item.url }}">{{ item.title }}</a>
+            {% if item.children %}
+                {% include 'js_sitemap/item.html' with items=item.children %}
+          {% endif %}
+        </li>
+    {% endfor %}
+  </ul>
