@@ -8,5 +8,5 @@ from .views import basic_sitemap
 
 
 urlpatterns = [
-    url(r'^$', basic_sitemap, name='index'),
+    url(r'^$', basic_sitemap, name='sitemap'),
 ]

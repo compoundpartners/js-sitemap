@@ -6,11 +6,19 @@ from django.template.response import TemplateResponse
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import get_language_from_request
+from django.conf import settings
+from django.views.decorators.cache import cache_page
 
 from cms.models import Title
 from cms.apphook_pool import apphook_pool
 
 APPLICATIONS = {}
+
+SITEMAP_CACHE_TIMEOUT = getattr(
+    settings,
+    'SITEMAP_CACHE_TIMEOUT',
+    60*60*24,
+)
 
 try:
     from aldryn_newsblog.sitemaps.sitemap import NewsBlogSitemap
@@ -55,6 +63,7 @@ def get_language(request):
     return lang
 
 
+@cache_page(SITEMAP_CACHE_TIMEOUT)
 def basic_sitemap(request, **kwargs):
     """View for a human friendly sitemap."""
     language = get_language(request)
