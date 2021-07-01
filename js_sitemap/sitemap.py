@@ -43,7 +43,7 @@ if SHOW_ALTERNATIVES:
             return max(modification_dates)
 
         def languages(self, page):
-            return page.title_set.filter(Q(redirect__exact='') | Q(redirect__isnull=True)).values_list('language', flat=True)
+            return page.title_set.public().filter(Q(redirect__exact='') | Q(redirect__isnull=True)).values_list('language', flat=True)
 
 else:
     class CMSPageSitemap(CMSSitemap):

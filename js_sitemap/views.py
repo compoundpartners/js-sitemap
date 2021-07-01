@@ -12,7 +12,7 @@ from django.views.decorators.cache import cache_page
 from cms.models import Title
 from cms.apphook_pool import apphook_pool
 
-APPLICATIONS = {}
+ALL_APPLICATIONS = {}
 
 SITEMAP_CACHE_TIMEOUT = getattr(
     settings,
@@ -23,37 +23,42 @@ SITEMAP_CACHE_TIMEOUT = getattr(
 try:
     from aldryn_newsblog.sitemaps.sitemap import NewsBlogSitemap
     from aldryn_newsblog.cms_apps import NewsBlogApp
-    APPLICATIONS[NewsBlogApp] = NewsBlogSitemap
-except:
+    ALL_APPLICATIONS[NewsBlogApp] = NewsBlogSitemap
+except ImportError:
     pass
 
 try:
     from aldryn_people.sitemap import PeopleSitemap
     from aldryn_people.cms_apps import PeopleApp
-    APPLICATIONS[PeopleApp] = PeopleSitemap
-except:
+    ALL_APPLICATIONS[PeopleApp] = PeopleSitemap
+except ImportError:
     pass
 
 try:
     from js_services.sitemap import ServicesSitemap
     from js_services.cms_apps import ServicesApp
-    APPLICATIONS[ServicesApp] = ServicesSitemap
-except:
+    ALL_APPLICATIONS[ServicesApp] = ServicesSitemap
+except ImportError:
     pass
 
 try:
     from js_events.sitemap import EventsSitemap
     from js_events.cms_apps import EventsApp
-    APPLICATIONS[EventsApp] = EventsSitemap
-except:
+    ALL_APPLICATIONS[EventsApp] = EventsSitemap
+except ImportError:
     pass
 
 try:
     from js_locations.sitemap import LocationsSitemap
     from js_locations.cms_apps import JSLocationsApp
-    APPLICATIONS[JSLocationsApp] = LocationsSitemap
-except:
+    ALL_APPLICATIONS[JSLocationsApp] = LocationsSitemap
+except ImportError:
     pass
+
+try:
+    from custom.js_sitemap.views import APPLICATIONS
+except ImportError:
+    APPLICATIONS = ALL_APPLICATIONS
 
 
 def get_language(request):
